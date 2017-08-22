@@ -10,7 +10,7 @@
   <artifactId>controle-descarte</artifactId>
   <packaging>war</packaging>
   <name>controle-descarte Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <url>http://maven.apachee.org</url>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
