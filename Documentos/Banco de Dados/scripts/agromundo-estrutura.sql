@@ -1,3 +1,6 @@
+
+--DROP SCHEMA AGROMUNDO CASCADE;
+
 CREATE SCHEMA AGROMUNDO;
 
 CREATE SEQUENCE agromundo.seq_cliente_especial;
@@ -82,6 +85,7 @@ CREATE TABLE agromundo.Produto (
                 ds_nome VARCHAR(250) NOT NULL,
                 fk_id_fornecedor BIGINT NOT NULL,
                 qtd_medida DOUBLE PRECISION,
+                dt_validade DATE NOT NULL,
                 CONSTRAINT id_produto PRIMARY KEY (id_produto)
 );
 COMMENT ON TABLE agromundo.Produto IS 'Tabela responsável por armazenar produtos';
@@ -90,6 +94,7 @@ COMMENT ON COLUMN agromundo.Produto.fk_id_tipo_produto IS 'Tipo do produto';
 COMMENT ON COLUMN agromundo.Produto.ds_nome IS 'Nome do produto';
 COMMENT ON COLUMN agromundo.Produto.fk_id_fornecedor IS 'Fornecedor';
 COMMENT ON COLUMN agromundo.Produto.qtd_medida IS 'Representação em quilos ou litros do produto';
+COMMENT ON COLUMN agromundo.Produto.dt_validade IS 'Data de validade do produto';
 
 
 ALTER TABLE agromundo.Produto ADD CONSTRAINT tipo_produto_produto_fk
