@@ -1,47 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	 <parent>
-      <groupId>br.com.agromundo</groupId>
-      <artifactId>agromundo-parent</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-   </parent>
+	<parent>
+		<groupId>br.com.agromundo</groupId>
+		<artifactId>agromundo-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<artifactId>controle-estoque</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>agromundo-parent</name>
-	<description>Projeto parent do "agromundo"</description>
+	<name>controle-estoque</name>
+	<description>Projeto parent do "controle-estoque"</description>
 	<modules>
-		<module>controle-estoque-web</module>
-    <module>controle-estoque-model</module>
-  </modules>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<wtpversion>${wtp.version}</wtpversion>
-				</configuration>
-			</plugin>
-	</plugins>
-	</build>
+		<module>controle-estoque-api</module>
+		<module>controle-estoque-model</module>
+	</modules>
 </project>
