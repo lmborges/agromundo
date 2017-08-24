@@ -8,9 +8,7 @@
 		<artifactId>controle-estoque</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>br.com.agromundo</groupId>
 	<artifactId>controle-estoque-model</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>controle-estoque-model</name>
 	<url>http://maven.apache.org</url>
 	<properties>
