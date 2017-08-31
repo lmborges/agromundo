@@ -1,12 +1,11 @@
 /**
  * 
  */
-package br.com.mundoagro.controle.descaste.boot;
+package br.com.agromundo.controle.descaste.boot;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,7 +19,8 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
-import br.com.mundoagro.controle.descaste.services.JobVerificaProdutosDescarte;
+import br.com.agromundo.controle.descaste.services.JobVerificaProdutosDescarte;
+import br.com.agromundo.controle.descaste.util.CDIJobFactory;
 
 /**
  * @author Leonardo Borges
@@ -28,8 +28,8 @@ import br.com.mundoagro.controle.descaste.services.JobVerificaProdutosDescarte;
  */
 public class BootDescarte extends HttpServlet {
 
-	private static final int MINUTOS_NOTIFICACAO = 20;
-	private static final int HORARIO_NOTIFICACAO = 1;
+	private static final int MINUTOS_NOTIFICACAO = 52;
+	private static final int HORARIO_NOTIFICACAO = 22;
 	private static final String GRUPO_TRIGGER = "Notifica as 8 a.m";
 	private static final String NOME_TRIGGER = "trigger1";
 	private static final String GRUPO_JOB = "Notificar fabricantes sobre descarte";
@@ -70,9 +70,6 @@ public class BootDescarte extends HttpServlet {
 
 	}
 
-	@Default
-	private Scheduler getScheduler() throws SchedulerException {
-		return StdSchedulerFactory.getDefaultScheduler();
-	}
+	
 
 }

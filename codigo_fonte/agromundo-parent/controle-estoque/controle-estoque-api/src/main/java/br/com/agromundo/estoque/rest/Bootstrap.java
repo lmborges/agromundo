@@ -1,4 +1,4 @@
-package br.com.mundoagro.estoque.rest;
+package br.com.agromundo.estoque.rest;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

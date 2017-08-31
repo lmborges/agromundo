@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.mundoagro.controle.descaste.gerenciador;
+package br.com.agromundo.controle.descaste.gerenciador;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 
+import br.com.agromundo.controle.descaste.services.EnviarEmail;
 import br.com.agromundo.estoque.model.dominio.NotificaFornecedor;
 import br.com.agromundo.estoque.model.repositorio.RepositorioFornecedor;
-import br.com.mundoagro.controle.descaste.services.EnviarEmail;
 
 /**
  * @author Leonardo Borges

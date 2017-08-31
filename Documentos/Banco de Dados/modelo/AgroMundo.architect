@@ -13,7 +13,7 @@
   <table id="TAB1" populated="true" UUID="ccf07537-b26e-4fea-bf73-d681a95d4e92" name="Produto" objectType="TABLE" physicalName="Produto" >
    <remarks>Tabela responsável por armazenar produtos</remarks>
    <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL2" populated="true" UUID="19f3a53e-0438-4e79-99ab-b9ddd7bd7e6d" autoIncrement="false" autoIncrementSequenceName="SEQ_PRODUTO" defaultValue="" name="id_produto" nullable="0" physicalName="id_produto" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL2" populated="true" UUID="19f3a53e-0438-4e79-99ab-b9ddd7bd7e6d" autoIncrement="true" autoIncrementSequenceName="SEQ_PRODUTO" defaultValue="" name="id_produto" nullable="0" physicalName="id_produto" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks>Identificação do produto</remarks>
     </column>
     <column id="COL3" populated="true" UUID="b3639379-0c17-405a-8f2c-9880779fd462" autoIncrement="false" autoIncrementSequenceName="Produto_fk_id_tipo_produto_seq" defaultValue="" name="fk_id_tipo_produto" nullable="0" physicalName="fk_id_tipo_produto" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >

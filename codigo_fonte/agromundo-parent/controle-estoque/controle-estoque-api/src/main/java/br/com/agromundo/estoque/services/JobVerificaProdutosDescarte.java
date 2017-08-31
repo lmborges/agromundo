@@ -1,4 +1,4 @@
-package br.com.mundoagro.estoque.services;
+package br.com.agromundo.estoque.services;
 
 public class JobVerificaProdutosDescarte {
 

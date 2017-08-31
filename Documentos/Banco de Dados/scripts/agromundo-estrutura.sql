@@ -1,7 +1,8 @@
 
---DROP SCHEMA AGROMUNDO CASCADE;
+DROP SCHEMA AGROMUNDO CASCADE;
 
 CREATE SCHEMA AGROMUNDO;
+
 
 CREATE SEQUENCE agromundo.seq_cliente_especial;
 
@@ -79,8 +80,10 @@ COMMENT ON COLUMN agromundo.Embalagem.fk_id_fornecedor IS 'Fornecedor';
 
 ALTER SEQUENCE agromundo.seq_embalagem OWNED BY agromundo.Embalagem.id_embalagem;
 
+CREATE SEQUENCE agromundo.seq_produto;
+
 CREATE TABLE agromundo.Produto (
-                id_produto BIGINT NOT NULL,
+                id_produto BIGINT NOT NULL DEFAULT nextval('agromundo.seq_produto'),
                 fk_id_tipo_produto BIGINT NOT NULL,
                 ds_nome VARCHAR(250) NOT NULL,
                 fk_id_fornecedor BIGINT NOT NULL,
@@ -96,6 +99,8 @@ COMMENT ON COLUMN agromundo.Produto.fk_id_fornecedor IS 'Fornecedor';
 COMMENT ON COLUMN agromundo.Produto.qtd_medida IS 'Representação em quilos ou litros do produto';
 COMMENT ON COLUMN agromundo.Produto.dt_validade IS 'Data de validade do produto';
 
+
+ALTER SEQUENCE agromundo.seq_produto OWNED BY agromundo.Produto.id_produto;
 
 ALTER TABLE agromundo.Produto ADD CONSTRAINT tipo_produto_produto_fk
 FOREIGN KEY (fk_id_tipo_produto)

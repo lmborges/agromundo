@@ -1,4 +1,4 @@
-package br.com.mundoagro.estoque.rest;
+package br.com.agromundo.estoque.rest;
 
 import java.util.HashSet;
 import java.util.Set;

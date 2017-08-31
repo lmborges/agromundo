@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.mundoagro.controle.descaste.services;
+package br.com.agromundo.controle.descaste.services;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;

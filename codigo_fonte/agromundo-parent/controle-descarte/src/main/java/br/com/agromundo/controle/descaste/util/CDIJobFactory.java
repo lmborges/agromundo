@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.mundoagro.controle.descaste.boot;
+package br.com.agromundo.controle.descaste.util;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
@@ -17,7 +17,7 @@ import org.quartz.spi.TriggerFiredBundle;
  * @author Leonardo Borges
  *
  */
-final class CDIJobFactory implements JobFactory {
+public final class CDIJobFactory implements JobFactory {
 	@Inject
 	BeanManager beanManager;
 

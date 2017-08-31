@@ -1,4 +1,4 @@
-package br.com.mundoagro.controle.descaste.services;
+package br.com.agromundo.controle.descaste.services;
 
 import javax.inject.Inject;
 
@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import br.com.mundoagro.controle.descaste.gerenciador.GerenciadorDescarte;
+import br.com.agromundo.controle.descaste.gerenciador.GerenciadorDescarte;
 
 public class JobVerificaProdutosDescarte implements org.quartz.Job {
 
