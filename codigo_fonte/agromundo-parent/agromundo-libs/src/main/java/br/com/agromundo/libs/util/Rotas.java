@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.agromundo.libs.util;
+package br.com.agromundo.libs.util;
 
 /**
  * @author Leonardo Borges

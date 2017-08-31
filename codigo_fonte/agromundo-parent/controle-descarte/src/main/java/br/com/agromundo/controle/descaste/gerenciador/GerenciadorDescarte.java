@@ -3,6 +3,7 @@
  */
 package br.com.agromundo.controle.descaste.gerenciador;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,35 +21,44 @@ import br.com.agromundo.estoque.model.repositorio.RepositorioFornecedor;
  */
 public class GerenciadorDescarte {
 
-	Logger log = Logger.getLogger(GerenciadorDescarte.class);
+  Logger log = Logger.getLogger(GerenciadorDescarte.class);
 
-	private static final String ASSUNTO_EMAIL = "Agromundo solicita descarte de materias";
-	private static final String CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR = "Prezado %s, \n temos em nosso estoque os seguintes quantitativos e aguardamos "
-			+ "o tão breve recolhimento:" + "\n - %s embalagem(ns);" + "\n - %s litro(s) de produto(s) vencido(s);"
-			+ "\n - %s quilo(s) de produto(s) vencido(s);" + "\n\n Atenciosamente,\n Agromundo";
+  private static final String ASSUNTO_EMAIL = "Agromundo solicita descarte de materias";
+  private static final String CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR = "Prezado %s, \n temos em nosso estoque os seguintes quantitativos e aguardamos "
+      + "o tão breve recolhimento:" + "\n - %s embalagem(ns);"
+      + "\n - %s litro(s) de produto(s) vencido(s);" + "\n - %s quilo(s) de produto(s) vencido(s);"
+      + "\n\n Atenciosamente,\n Agromundo";
 
-	@Inject
-	RepositorioFornecedor repositorioFornecedor;
-	@Inject
-	EnviarEmail email;
+  @Inject
+  RepositorioFornecedor repositorioFornecedor;
+  @Inject
+  EnviarEmail email;
 
-	public int notificalFornecedoresComPendencia() {
-		List<NotificaFornecedor> listaFornecedoresNotificacao = repositorioFornecedor
-				.listarFornecedoresQueDevemSerNotificados();
-		int fornecedoresNotificados = 0;
-		for (NotificaFornecedor fornecedor : listaFornecedoresNotificacao) {
-			try {
-				email.enviarEmail(fornecedor.getNome(), fornecedor.getEmail(),
-						String.format(CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR, fornecedor.getNome(),
-								fornecedor.getQtdEmbalagens(), fornecedor.getQtdLitros(), fornecedor.getQtdQuilos()),
-						ASSUNTO_EMAIL);
-				fornecedoresNotificados++;
-			} catch (EmailException e) {
-				log.error(e);
-			}
-		}
+  public int notificalFornecedoresComPendencia() {
+    List<NotificaFornecedor> listaFornecedoresNotificacao;
+    int fornecedoresNotificados = 0;
+    try {
+      listaFornecedoresNotificacao = repositorioFornecedor
+          .listarFornecedoresQueDevemSerNotificados();
 
-		return fornecedoresNotificados;
-	}
+      for (NotificaFornecedor fornecedor : listaFornecedoresNotificacao) {
+        try {
+          email.enviarEmail(fornecedor.getNome(), fornecedor.getEmail(),
+              String.format(CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR, fornecedor.getNome(),
+                  fornecedor.getQtdEmbalagens(), fornecedor.getQtdLitros(),
+                  fornecedor.getQtdQuilos()),
+              ASSUNTO_EMAIL);
+          fornecedoresNotificados++;
+        } catch (EmailException e) {
+          log.error(e);
+        }
+      }
+    } catch (SQLException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+
+    return fornecedoresNotificados;
+  }
 
 }

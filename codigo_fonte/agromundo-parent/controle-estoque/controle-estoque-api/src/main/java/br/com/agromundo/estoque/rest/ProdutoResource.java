@@ -11,13 +11,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import org.agromundo.libs.exception.BusinessException;
-import org.agromundo.libs.util.CodigoStatusHttp;
-import org.agromundo.libs.util.Rotas;
 import org.apache.log4j.Logger;
 
 import br.com.agromundo.estoque.model.dominio.Produto;
 import br.com.agromundo.estoque.model.gerenciador.GerenciadorProduto;
+import br.com.agromundo.libs.exception.BusinessException;
+import br.com.agromundo.libs.util.CodigoStatusHttp;
+import br.com.agromundo.libs.util.Rotas;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

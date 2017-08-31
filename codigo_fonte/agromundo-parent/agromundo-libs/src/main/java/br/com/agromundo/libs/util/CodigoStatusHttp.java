@@ -1,4 +1,4 @@
-package org.agromundo.libs.util;
+package br.com.agromundo.libs.util;
 
 // Nao foi possivel criar um Enum, pois as annotations nao permitem:
 // (The value for annotation attribute ApiResponse.code must be a constant expression)

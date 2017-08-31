@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.agromundo.libs.exception;
+package br.com.agromundo.libs.exception;
 
 import java.util.HashMap;
 import java.util.Map;

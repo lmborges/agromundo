@@ -51,16 +51,16 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.jboss.bom</groupId>
-				<artifactId>jboss-eap-javaee7-with-tools</artifactId>
-				<version>${version.jboss.bom.eap}</version>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-javaee7-with-tools</artifactId>
+				<version>${version.wildfly.bom}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<properties>
-		<version.jboss.bom.eap>7.0.4.GA</version.jboss.bom.eap>
+		<version.wildfly.bom>10.1.1.Final</version.wildfly.bom>
 
 	</properties>
 	<build>
