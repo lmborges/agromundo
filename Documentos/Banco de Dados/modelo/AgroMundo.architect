@@ -144,7 +144,7 @@
     <folder id="FOLTAB312" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB314" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX37" populated="true" UUID="f3454d0e-4f8b-453b-b918-701cc0308989" clustered="false" name="id_usuario" physicalName="id_cliente_especial" primaryKeyIndex="true" unique="false" >
+    <index id="IDX37" populated="true" UUID="f3454d0e-4f8b-453b-b918-701cc0308989" clustered="false" name="id_usuario" physicalName="id_usuario" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC38" populated="true" UUID="5cf477f0-6070-43b9-b955-1600159b46a1" ascendingOrDescending="UNSPECIFIED" column-ref="COL32" name="id_usuario" physicalName="id_usuario" />
     </index>
     <index id="IDX39" populated="true" UUID="c917b1af-1a11-4a8b-bfbf-8ac3a09a1103" clustered="false" name="cliente_especial_idx" physicalName="cliente_especial_idx" primaryKeyIndex="false" unique="true" >
@@ -153,18 +153,18 @@
    </folder>
   </table>
   <relationships>
-   <relationship id="REL41" populated="true" UUID="1e069f01-4161-4ca1-a1f1-bbb417a96b2d" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Fornecedor_Produto_fk" physicalName="Fornecedor_Produto_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL41" populated="true" UUID="1e069f01-4161-4ca1-a1f1-bbb417a96b2d" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Fornecedor_Produto_fk" physicalName="fornecedor_produto_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP42" populated="true" UUID="07fa36e4-b3bb-4156-9dc2-9455d1972d11" fk-column-ref="COL5" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL14" />
    </relationship>
-   <relationship id="REL43" populated="true" UUID="a5bad929-2743-4169-85e9-be00385472bf" deferrability="7" deleteRule="3" fk-table-ref="TAB25" fkCardinality="7" identifying="true" name="Fornecedor_Embalagem_fk" physicalName="Fornecedor_Embalagem_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL43" populated="true" UUID="a5bad929-2743-4169-85e9-be00385472bf" deferrability="7" deleteRule="3" fk-table-ref="TAB25" fkCardinality="7" identifying="true" name="Fornecedor_Embalagem_fk" physicalName="fornecedor_embalagem_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP44" populated="true" UUID="9f8bfac8-3fbf-4ba9-9125-4fe454a8d3bb" fk-column-ref="COL28" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL14" />
    </relationship>
-   <relationship id="REL45" populated="true" UUID="2afdec25-4879-4dff-8064-6d9dc4370d06" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Tipo_produto_Produto_fk" physicalName="Tipo_produto_Produto_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
+   <relationship id="REL45" populated="true" UUID="2afdec25-4879-4dff-8064-6d9dc4370d06" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="Tipo_produto_Produto_fk" physicalName="tipo_produto_produto_fk" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP46" populated="true" UUID="0893719f-e332-4514-8df6-c488ee6f6b42" fk-column-ref="COL3" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL20" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="agromundo"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="agromundo"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">

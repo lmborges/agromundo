@@ -4,26 +4,28 @@ DROP SCHEMA AGROMUNDO CASCADE;
 CREATE SCHEMA AGROMUNDO;
 
 
-CREATE SEQUENCE agromundo.seq_cliente_especial;
+CREATE SEQUENCE agromundo.seq_usuario;
 
-CREATE TABLE agromundo.Cliente_Especial (
-                id_cliente_especial BIGINT NOT NULL DEFAULT nextval('agromundo.seq_cliente_especial'),
+CREATE TABLE agromundo.Usuario (
+                id_usuario BIGINT NOT NULL DEFAULT nextval('agromundo.seq_usuario'),
                 ds_login VARCHAR(80) NOT NULL,
                 cd_senha VARCHAR(128) NOT NULL,
                 ds_nome VARCHAR(200) NOT NULL,
-                CONSTRAINT id_cliente_especial PRIMARY KEY (id_cliente_especial)
+                cd_tipo_usuario VARCHAR(2) NOT NULL,
+                CONSTRAINT id_usuario PRIMARY KEY (id_usuario)
 );
-COMMENT ON TABLE agromundo.Cliente_Especial IS 'Responsável por armazenar clientes que utilizam o web-service';
-COMMENT ON COLUMN agromundo.Cliente_Especial.id_cliente_especial IS 'identificador do cliente';
-COMMENT ON COLUMN agromundo.Cliente_Especial.ds_login IS 'login do usuário';
-COMMENT ON COLUMN agromundo.Cliente_Especial.cd_senha IS 'Senha do usuário';
-COMMENT ON COLUMN agromundo.Cliente_Especial.ds_nome IS 'Nome do cliente';
+COMMENT ON TABLE agromundo.Usuario IS 'Responsável por armazenar os usuários';
+COMMENT ON COLUMN agromundo.Usuario.id_usuario IS 'identificador do usuario';
+COMMENT ON COLUMN agromundo.Usuario.ds_login IS 'login do usuário';
+COMMENT ON COLUMN agromundo.Usuario.cd_senha IS 'Senha do usuário';
+COMMENT ON COLUMN agromundo.Usuario.ds_nome IS 'Nome do usuario';
+COMMENT ON COLUMN agromundo.Usuario.cd_tipo_usuario IS 'Código do tipo de usuário: 1- Administrador, 2 - Operador, 3 - cliente para acesso via web-service, 4 cliente';
 
 
-ALTER SEQUENCE agromundo.seq_cliente_especial OWNED BY agromundo.Cliente_Especial.id_cliente_especial;
+ALTER SEQUENCE agromundo.seq_usuario OWNED BY agromundo.Usuario.id_usuario;
 
 CREATE UNIQUE INDEX cliente_especial_idx
- ON agromundo.Cliente_Especial
+ ON agromundo.Usuario
  ( ds_login );
 
 CREATE SEQUENCE agromundo.seq_tipo_produto;
@@ -31,7 +33,7 @@ CREATE SEQUENCE agromundo.seq_tipo_produto;
 CREATE TABLE agromundo.Tipo_Produto (
                 id_tipo_produto BIGINT NOT NULL DEFAULT nextval('agromundo.seq_tipo_produto'),
                 ds_nome VARCHAR(300) NOT NULL,
-                cd_unidade_medida DOUBLE PRECISION,
+                cd_unidade_medida VARCHAR(2) NOT NULL,
                 CONSTRAINT id_tipo_produto PRIMARY KEY (id_tipo_produto)
 );
 COMMENT ON TABLE agromundo.Tipo_Produto IS 'responsável por armazenar tipo de produtos agropecuarios';
@@ -47,19 +49,13 @@ CREATE SEQUENCE agromundo.seq_fornecedor;
 CREATE TABLE agromundo.Fornecedor (
                 id_fornecedor BIGINT NOT NULL DEFAULT nextval('agromundo.seq_fornecedor'),
                 tp_fornecedor VARCHAR NOT NULL,
-                ds_nome_fantasia VARCHAR(250),
-                ds_razao_social VARCHAR(250) NOT NULL,
-                cd_cnpj VARCHAR(14) NOT NULL,
-                ds_email VARCHAR(250) NOT NULL,
+                cd_id_externo_fornecedor BIGINT NOT NULL,
                 CONSTRAINT id_fornecedor PRIMARY KEY (id_fornecedor)
 );
 COMMENT ON TABLE agromundo.Fornecedor IS 'Tabela responsável por armazenar o fornecedor';
 COMMENT ON COLUMN agromundo.Fornecedor.id_fornecedor IS 'identificador do fornecedor';
 COMMENT ON COLUMN agromundo.Fornecedor.tp_fornecedor IS 'Tipo do fornecedor, 1 - Fabricante; 2- Revendedor';
-COMMENT ON COLUMN agromundo.Fornecedor.ds_nome_fantasia IS 'Nome do Fornecedor';
-COMMENT ON COLUMN agromundo.Fornecedor.ds_razao_social IS 'Razão social do fornecedor';
-COMMENT ON COLUMN agromundo.Fornecedor.cd_cnpj IS 'Cadastro Nacional da Pessoa Jurídica';
-COMMENT ON COLUMN agromundo.Fornecedor.ds_email IS 'Email do fornecedor';
+COMMENT ON COLUMN agromundo.Fornecedor.cd_id_externo_fornecedor IS 'id externo fornecedor';
 
 
 ALTER SEQUENCE agromundo.seq_fornecedor OWNED BY agromundo.Fornecedor.id_fornecedor;
@@ -87,8 +83,11 @@ CREATE TABLE agromundo.Produto (
                 fk_id_tipo_produto BIGINT NOT NULL,
                 ds_nome VARCHAR(250) NOT NULL,
                 fk_id_fornecedor BIGINT NOT NULL,
-                qtd_medida DOUBLE PRECISION,
+                qtd_medida NUMERIC(8,2) NOT NULL,
                 dt_validade DATE NOT NULL,
+                tp_toxico INTEGER NOT NULL,
+                vr_valor_custo NUMERIC(8,2) NOT NULL,
+                vr_valor_venda NUMERIC(8,2) NOT NULL,
                 CONSTRAINT id_produto PRIMARY KEY (id_produto)
 );
 COMMENT ON TABLE agromundo.Produto IS 'Tabela responsável por armazenar produtos';
@@ -98,6 +97,9 @@ COMMENT ON COLUMN agromundo.Produto.ds_nome IS 'Nome do produto';
 COMMENT ON COLUMN agromundo.Produto.fk_id_fornecedor IS 'Fornecedor';
 COMMENT ON COLUMN agromundo.Produto.qtd_medida IS 'Representação em quilos ou litros do produto';
 COMMENT ON COLUMN agromundo.Produto.dt_validade IS 'Data de validade do produto';
+COMMENT ON COLUMN agromundo.Produto.tp_toxico IS '1 - Agrotoxico, 2 - Não agrotoxico';
+COMMENT ON COLUMN agromundo.Produto.vr_valor_custo IS 'Valor de custo do produto';
+COMMENT ON COLUMN agromundo.Produto.vr_valor_venda IS 'Valor de venda do produto';
 
 
 ALTER SEQUENCE agromundo.seq_produto OWNED BY agromundo.Produto.id_produto;

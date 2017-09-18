@@ -1,5 +1,5 @@
 -- insert fornecedores
-INSERT INTO agromundo.fornecedor ( tp_fornecedor, ds_nome_fantasia, ds_razao_social, cd_cnpj, ds_email) VALUES ( '1', 'Coca cola', 'Charope de coca', '12345678911234', 'odranoel.df@gmail.com');
+INSERT INTO agromundo.fornecedor ( tp_fornecedor, cd_id_externo_fornecedor) VALUES ( '1', '1');
 
 
  -- insert tipo produtos
@@ -9,10 +9,10 @@ INSERT INTO agromundo.tipo_produto ( ds_nome, cd_unidade_medida) VALUES ( 'Quilo
 
 --insert produtos
 
-INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade) VALUES ( 1, 'Galão com coca-cola animal', 1, 14, now()); 
-INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade) VALUES ( 1, 'Galão com guaraná animal', 1, 28, now()); 
-INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade) VALUES ( 2, 'Caixa de charope de coca-cola animal', 1, 12, now()); 
-INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade) VALUES ( 2, 'Caixa de charope de guaraná animal', 1, 1, now()); 
+INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade, tp_toxico, vr_valor_custo, vr_valor_venda) VALUES ( 1, 'Galão com coca-cola animal', 1, 14, now(), '1', 12, 15); 
+INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade,tp_toxico, vr_valor_custo, vr_valor_venda) VALUES ( 1, 'Galão com guaraná animal', 1, 28, now(), '1', 22, 35); 
+INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade,tp_toxico, vr_valor_custo, vr_valor_venda) VALUES ( 2, 'Caixa de charope de coca-cola animal', 1, 12, now(), '1', 32, 45); 
+INSERT INTO agromundo.produto (fk_id_tipo_produto, ds_nome, fk_id_fornecedor, qtd_medida, dt_validade,tp_toxico, vr_valor_custo, vr_valor_venda) VALUES ( 2, 'Caixa de charope de guaraná animal', 1, 1, now(), '1', 42, 55); 
 
 --insert de embalagens
 
