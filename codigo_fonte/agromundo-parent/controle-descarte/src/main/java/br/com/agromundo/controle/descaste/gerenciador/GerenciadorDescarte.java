@@ -4,7 +4,10 @@
 package br.com.agromundo.controle.descaste.gerenciador;
 
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -12,8 +15,10 @@ import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 
 import br.com.agromundo.controle.descaste.services.EnviarEmail;
+import br.com.agromundo.controle.descaste.services.FornecedoresWS;
 import br.com.agromundo.estoque.model.dominio.NotificaFornecedor;
 import br.com.agromundo.estoque.model.repositorio.RepositorioFornecedor;
+import br.com.agromundo.libs.vo.FornecedorVO;
 
 /**
  * @author Leonardo Borges
@@ -33,22 +38,33 @@ public class GerenciadorDescarte {
   RepositorioFornecedor repositorioFornecedor;
   @Inject
   EnviarEmail email;
+  @Inject
+  FornecedoresWS fornecedorWs;
 
   public int notificalFornecedoresComPendencia() {
+    Instant antes = Instant.now();
     List<NotificaFornecedor> listaFornecedoresNotificacao;
     int fornecedoresNotificados = 0;
     try {
       listaFornecedoresNotificacao = repositorioFornecedor
           .listarFornecedoresQueDevemSerNotificados();
 
+      List<Long> idFornecedores = listaFornecedoresNotificacao.stream()
+          .map(fornecedor -> fornecedor.getIdExternoFornecedor()).collect(Collectors.toList());
+      List<FornecedorVO> dadosCadastraisFornecedores = fornecedorWs
+          .obterListaFornecedores(idFornecedores);
+
       for (NotificaFornecedor fornecedor : listaFornecedoresNotificacao) {
         try {
-          email.enviarEmail(fornecedor.getNome(), fornecedor.getEmail(),
-              String.format(CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR, fornecedor.getNome(),
-                  fornecedor.getQtdEmbalagens(), fornecedor.getQtdLitros(),
-                  fornecedor.getQtdQuilos()),
-              ASSUNTO_EMAIL);
-          fornecedoresNotificados++;
+          mergeFornecedor(fornecedor, dadosCadastraisFornecedores);
+          if (fornecedor.getEmail() != null && fornecedor.getEmail().length() > 0) {
+            email.enviarEmail(fornecedor.getNome(), fornecedor.getEmail(),
+                String.format(CORPO_EMAIL_RECOLHIMENTO_FORNECEDOR, fornecedor.getNome(),
+                    fornecedor.getQtdEmbalagens(), fornecedor.getQtdLitros(),
+                    fornecedor.getQtdQuilos()),
+                ASSUNTO_EMAIL);
+            fornecedoresNotificados++;
+          }
         } catch (EmailException e) {
           log.error(e);
         }
@@ -57,8 +73,24 @@ public class GerenciadorDescarte {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
-
+    Duration duracao = Duration.between(antes, Instant.now());
+    log.info("Foram notificados "+fornecedoresNotificados+" fornecedores\nTempo de processamento: "+ duracao.getSeconds()+ " em segundos e "+duracao.getNano() + " em nanosegundos");
+  
     return fornecedoresNotificados;
+  }
+
+  /**
+   * @param fornecedor
+   * @param dadosCadastraisFornecedores
+   */
+  private void mergeFornecedor(NotificaFornecedor fornecedor,
+      List<FornecedorVO> dadosCadastraisFornecedores) {
+    dadosCadastraisFornecedores.stream().forEach(itemDadosFornecedor -> {
+      if (itemDadosFornecedor.getId().equals(fornecedor.getIdExternoFornecedor())) {
+        fornecedor.setEmail(itemDadosFornecedor.getEmail());
+        fornecedor.setNome(itemDadosFornecedor.getNome());
+      }
+    });
   }
 
 }
