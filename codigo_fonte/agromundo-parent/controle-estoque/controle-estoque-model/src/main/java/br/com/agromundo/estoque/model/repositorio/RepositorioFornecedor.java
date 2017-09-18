@@ -37,28 +37,28 @@ public class RepositorioFornecedor {
 		QueryRunner query = new QueryRunner(agroMundo);
 		
 	    List<NotificaFornecedor> retorno = query.query(
-	    		" SELECT EM_PR.EMAIL,  EM_PR.ID_FORNECEDOR, EM_PR.NOME_FANSATIA, "
-	    				+" SUM(EM_PR.QTD_EMBALAGEM) QTD_EMBALAGEM "
-	    				+" , SUM ( CASE WHEN (EM_PR.TIPO_UNIDADE = '1') THEN EM_PR.QTD_MEDIDA  ELSE 0 END) QTD_LISTROS "
-	    				+" , SUM ( CASE WHEN (EM_PR.TIPO_UNIDADE = '2') THEN EM_PR.QTD_MEDIDA  ELSE 0 END) QTD_QUILOS "
-	    				+" FROM ( "
-	    						+" SELECT  FC.DS_EMAIL AS EMAIL,  FC.ID_FORNECEDOR, FC.DS_NOME_FANTASIA NOME_FANSATIA "
-	    				+" ,PR.QTD_MEDIDA, TP.CD_UNIDADE_MEDIDA TIPO_UNIDADE, '0' AS QTD_EMBALAGEM "
-	    				+" FROM AGROMUNDO.FORNECEDOR FC "
-	    				+" INNER JOIN AGROMUNDO.PRODUTO PR ON PR.FK_ID_FORNECEDOR = FC.ID_FORNECEDOR AND PR.DT_VALIDADE < NOW() "
-	    				+" LEFT JOIN AGROMUNDO.TIPO_PRODUTO TP ON TP.ID_TIPO_PRODUTO = PR.FK_ID_TIPO_PRODUTO "
-	    				+" UNION "
-	    				+" SELECT FC.DS_EMAIL AS EMAIL,  FC.ID_FORNECEDOR, FC.DS_NOME_FANTASIA NOME_FANSATIA "
-	    				+" ,'0' AS QTD_MEDIDA, '0'  TIPO_UNIDADE, COUNT(EM.ID_EMBALAGEM) AS QTD_EMBALAGEM "
-	    				+"  FROM AGROMUNDO.FORNECEDOR FC "
-	    				 +" INNER JOIN AGROMUNDO.EMBALAGEM EM ON EM.FK_ID_FORNECEDOR = FC.ID_FORNECEDOR "
-	    				+" GROUP BY EMAIL, ID_FORNECEDOR, NOME_FANSATIA ) EM_PR "
-	    				+" GROUP BY EMAIL, ID_FORNECEDOR, NOME_FANSATIA ",
+	        " SELECT EM_PR.ID_EXTERNO_FORNECEDOR,  EM_PR.ID_FORNECEDOR, "+
+	            "              SUM(EM_PR.QTD_EMBALAGEM) QTD_EMBALAGEM  "+
+	            "              , SUM ( CASE WHEN (EM_PR.TIPO_UNIDADE = '1') THEN EM_PR.QTD_MEDIDA  ELSE 0 END) QTD_LITROS  "+
+	            "              , SUM ( CASE WHEN (EM_PR.TIPO_UNIDADE = '2') THEN EM_PR.QTD_MEDIDA  ELSE 0 END) QTD_QUILOS  "+
+	            "              FROM (  "+
+	            "                  SELECT  FC.CD_ID_EXTERNO_FORNECEDOR  AS ID_EXTERNO_FORNECEDOR,  FC.ID_FORNECEDOR "+
+	            "              ,PR.QTD_MEDIDA, TP.CD_UNIDADE_MEDIDA TIPO_UNIDADE, '0' AS QTD_EMBALAGEM  "+
+	            "              FROM AGROMUNDO.FORNECEDOR FC  "+
+	            "              INNER JOIN AGROMUNDO.PRODUTO PR ON PR.FK_ID_FORNECEDOR = FC.ID_FORNECEDOR AND PR.DT_VALIDADE < NOW()  "+
+	            "              LEFT JOIN AGROMUNDO.TIPO_PRODUTO TP ON TP.ID_TIPO_PRODUTO = PR.FK_ID_TIPO_PRODUTO  "+
+	            "              UNION  "+
+	            "              SELECT FC.CD_ID_EXTERNO_FORNECEDOR AS ID_EXTERNO_FORNECEDOR,  FC.ID_FORNECEDOR "+
+	            "              ,'0' AS QTD_MEDIDA, '0'  TIPO_UNIDADE, COUNT(EM.ID_EMBALAGEM) AS QTD_EMBALAGEM  "+
+	            "               FROM AGROMUNDO.FORNECEDOR FC  "+
+	            "               INNER JOIN AGROMUNDO.EMBALAGEM EM ON EM.FK_ID_FORNECEDOR = FC.ID_FORNECEDOR  "+
+	            "              GROUP BY ID_EXTERNO_FORNECEDOR, ID_FORNECEDOR ) EM_PR  "+
+	            "              GROUP BY ID_EXTERNO_FORNECEDOR, ID_FORNECEDOR  ",
 	        new AbstractListHandler<NotificaFornecedor>() {
 
 	          @Override
 	          protected NotificaFornecedor handleRow(ResultSet rs) throws SQLException {
-	            return new NotificaFornecedor(rs.getLong("ID_FORNECEDOR"), rs.getString("NOME_FANSATIA"), rs.getString("EMAIL"), rs.getString("QTD_EMBALAGEM"), rs.getString("QTD_LITROS"), rs.getString("QTD_QUILOS") );//rs.getString(1);
+	            return new NotificaFornecedor(rs.getLong("ID_FORNECEDOR"), rs.getLong("ID_EXTERNO_FORNECEDOR"), rs.getString("QTD_EMBALAGEM"), rs.getString("QTD_LITROS"), rs.getString("QTD_QUILOS") );
 	          }
 	        });
 		
