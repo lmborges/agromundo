@@ -2,6 +2,7 @@
  * 
  */
 package br.com.agromundo.estoque.model.gerenciador;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,15 +18,16 @@ public class GerenciadorProduto {
 
   @Inject
   RepositorioProduto repositorio;
+
   /**
    * @param entidade
    */
   public Produto cadastrar(Produto entidade) {
     entidade.setId(null);
     return repositorio.cadastrar(entidade);
-    
+
   }
-  
+
   /**
    * @param entidade
    */
@@ -33,14 +35,13 @@ public class GerenciadorProduto {
     return repositorio.alterar(entidade);
   }
 
-
   /**
    * @param token
    * @param idTipoToken
    */
   public void excluir(Long idProduto) {
     repositorio.excluir(idProduto);
-    
+
   }
 
   /**
