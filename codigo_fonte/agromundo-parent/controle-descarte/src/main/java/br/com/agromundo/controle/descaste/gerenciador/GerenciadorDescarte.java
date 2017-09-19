@@ -40,11 +40,12 @@ public class GerenciadorDescarte {
   EnviarEmail email;
   @Inject
   FornecedoresWS fornecedorWs;
+  static int fornecedoresNotificados;
 
   public int notificalFornecedoresComPendencia() {
     Instant antes = Instant.now();
     List<NotificaFornecedor> listaFornecedoresNotificacao;
-    int fornecedoresNotificados = 0;
+    fornecedoresNotificados = 0;
     try {
       listaFornecedoresNotificacao = repositorioFornecedor
           .listarFornecedoresQueDevemSerNotificados();
@@ -54,7 +55,7 @@ public class GerenciadorDescarte {
       List<FornecedorVO> dadosCadastraisFornecedores = fornecedorWs
           .obterListaFornecedores(idFornecedores);
 
-      for (NotificaFornecedor fornecedor : listaFornecedoresNotificacao) {
+      listaFornecedoresNotificacao.parallelStream().forEach(fornecedor -> {
         try {
           mergeFornecedor(fornecedor, dadosCadastraisFornecedores);
           if (fornecedor.getEmail() != null && fornecedor.getEmail().length() > 0) {
@@ -68,10 +69,9 @@ public class GerenciadorDescarte {
         } catch (EmailException e) {
           log.error(e);
         }
-      }
+      });
     } catch (SQLException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
+      log.error(e1);
     }
     Duration duracao = Duration.between(antes, Instant.now());
     log.info("Foram notificados "+fornecedoresNotificados+" fornecedores\nTempo de processamento: "+ duracao.getSeconds()+ " em segundos e "+duracao.getNano() + " em nanosegundos");

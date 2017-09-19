@@ -28,8 +28,8 @@ import br.com.agromundo.controle.descaste.util.CDIJobFactory;
  */
 public class BootDescarte extends HttpServlet {
 
-	private static final int MINUTOS_NOTIFICACAO = 56;
-	private static final int HORARIO_NOTIFICACAO = 19;
+	private static final int MINUTOS_NOTIFICACAO = 26;
+	private static final int HORARIO_NOTIFICACAO = 21;
 	private static final String GRUPO_TRIGGER = "Notifica as 8 a.m";
 	private static final String NOME_TRIGGER = "trigger1";
 	private static final String GRUPO_JOB = "Notificar fabricantes sobre descarte";

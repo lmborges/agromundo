@@ -35,6 +35,7 @@ public class EnviarEmail {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   log.debug("autenticando...");
 		   email.setSSLOnConnect(true);
+		   email.setDebug(true);
 		   email.setAuthentication(EMAIL_SISTEMA, obterSenhaAutenticacao());
 		   log.debug("enviando...");
 		   email.send();
