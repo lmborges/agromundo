@@ -1,8 +1,6 @@
 package br.com.agromundo.estoque.rest;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -16,7 +14,7 @@ import com.google.common.base.Throwables;
 
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.models.Swagger;
-import io.swagger.models.auth.OAuth2Definition;
+import io.swagger.models.auth.BasicAuthDefinition;
 
 @WebServlet(loadOnStartup = 2)
 public class Bootstrap extends HttpServlet {
@@ -26,20 +24,20 @@ public class Bootstrap extends HttpServlet {
 		super.init(config);
 
 		try {
-			String arquivoConfiguracao = config.getServletContext().getInitParameter("arquivoConfiguracao");
-			Properties configuracoes = new Properties();
-			configuracoes.load(new FileInputStream(System.getProperty("arquivos") + "/" + arquivoConfiguracao));
+//			String arquivoConfiguracao = config.getServletContext().getInitParameter("arquivoConfiguracao");
+//			Properties configuracoes = new Properties();
+//			configuracoes.load(new FileInputStream(System.getProperty("arquivos") + "/" + arquivoConfiguracao));
 
 			BeanConfig beanConfig = new BeanConfig();
 			beanConfig.setVersion(readVersion(config.getServletContext()));
-			beanConfig.setBasePath("/controle-estoque-web/rest");
-			beanConfig.setResourcePackage("br.com.mundoagro.estoque.rest");
+			beanConfig.setBasePath("/controle-estoque-api/rest");
+			beanConfig.setResourcePackage("br.com.agromundo.estoque.rest");
 			beanConfig.setScan(true);
 
 			ServletContext context = config.getServletContext();
 			Swagger swagger = new Swagger().info(beanConfig.getInfo());
-			swagger.securityDefinition("capes_oauth",
-					new OAuth2Definition().implicit(configuracoes.getProperty("idp.oauth.url")));
+			swagger.securityDefinition("agromundo-estoque-autenticacao",
+					new BasicAuthDefinition());
 			context.setAttribute("swagger", swagger);
 
 		} catch (Exception e) {

@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <context-param>
-    <param-name>arquivoConfiguracao</param-name>
-    <param-value>poc.properties</param-value>
-  </context-param>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<context-param>
+		<param-name>arquivoConfiguracao</param-name>
+		<param-value>poc.properties</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>br.com.agromundo.estoque.seguranca.RestAuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>excludePaths</param-name>
+			<param-value>/rest/swagger\.json</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
 </web-app>

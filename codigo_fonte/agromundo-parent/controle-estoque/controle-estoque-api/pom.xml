@@ -67,6 +67,6 @@
 		<!-- ROOT.war é o nome da aplicação raiz no site OpenShift. -->
 		<!-- A aplicação ROOT.war será carregada em acessando http://formacao-comshalom.rhcloud.com/ -->
 		<!-- Se tiver outro nome, exemplo app.war, será preciso acrescentar esse nome no final: http://formacao-comshalom.rhcloud.com/app -->
-		<finalName>ROOT</finalName>
+		<finalName>controle-estoque-api</finalName>
 	</build>
 </project>
