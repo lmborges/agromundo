@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -39,6 +40,7 @@ public class FornecedorResourceTest {
     HttpGet get = new HttpGet(listarFornecedor());
     List<FornecedorVO> fornecedor;
     try (CloseableHttpClient client = HttpClients.custom().useSystemProperties().build()) {
+    	get.addHeader("Authorization","Basic "+ (Base64.getEncoder().encodeToString("admin:admin".getBytes("UTF-8"))));
       try (CloseableHttpResponse response = client.execute(get)) {
 
         Gson gson = new Gson();
