@@ -7,17 +7,24 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
+
+import br.com.agromundo.estoque.model.gerenciador.GerenciadorUsuario;
+
 /**
  * @author Leonardo Borges
  *
  */
 public class AuthenticationService {
+  
+  @Inject
+  GerenciadorUsuario gerenciadorUsuario;
+  
+  
 	public boolean authenticate(String authCredentials) {
 
 		if (null == authCredentials)
 			return false;
-		// header value format will be "Basic encodedstring" for Basic
-		// authentication. Example "Basic YWRtaW46YWRtaW4="
 		final String encodedUserPassword = authCredentials.replaceFirst("Basic"
 				+ " ", "");
 		String usernameAndPassword = null;
@@ -33,10 +40,8 @@ public class AuthenticationService {
 		final String username = tokenizer.nextToken();
 		final String password = tokenizer.nextToken();
 
-		// we have fixed the userid and password as admin
-		// call some UserService/LDAP here
-		boolean authenticationStatus = "admin".equals(username)
-				&& "admin".equals(password);
+		boolean authenticationStatus = gerenciadorUsuario.autenticado(username, password);
+		
 		return authenticationStatus;
 	}
 }

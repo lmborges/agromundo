@@ -9,7 +9,7 @@ package br.com.agromundo.libs.util;
  */
 public class Rotas {
   
-  public static final String TOKEN_DISPOSITIVO_SERVICE = "tokenDispositivo";
-  public static final String TOKEN_DISPOSITIVO_SERVICE_PATH = "/" + TOKEN_DISPOSITIVO_SERVICE;
+  public static final String PRODUTO_DISPOSITIVO_SERVICE = "produto";
+  public static final String PRODUTO_DISPOSITIVO_SERVICE_PATH = "/" + PRODUTO_DISPOSITIVO_SERVICE;
 
 }

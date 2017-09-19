@@ -1,18 +1,28 @@
 package br.com.agromundo.estoque.model.dominio;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.agromundo.estoque.model.util.IEntity;
 
 
 /**
  * 
- * @author borges
+ * @author Leonardo Borges
  *
  */
 @Entity
 @Table(name="Embalagem", schema="agromundo")
 @NamedQuery(name="Embalagem.findAll", query="SELECT e FROM Embalagem e")
-public class Embalagem implements Serializable {
+public class Embalagem implements IEntity {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String nome;
@@ -22,9 +32,9 @@ public class Embalagem implements Serializable {
 	}
 
 
-	@Id
-	@SequenceGenerator(name="EMBALAGEM_ID_GENERATOR", sequenceName="DPS_COLOCAR")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EMBALAGEM_ID_GENERATOR")
+  @Id
+  @SequenceGenerator(name = "EMBALAGEM_ID_GENERATOR", sequenceName = "agromundo.seq_Embalagem", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "EMBALAGEM_ID_GENERATOR")
 	@Column(name="id_embalagem")
 	public Long getId() {
 		return this.id;

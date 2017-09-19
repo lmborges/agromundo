@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -26,6 +27,9 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
   public static final String AUTHENTICATION_HEADER = "Authorization";
 
   private List<Pattern> exclusions = new LinkedList<Pattern>();
+
+  @Inject
+  private AuthenticationService authenticationService;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter)
@@ -51,9 +55,6 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String authCredentials = httpServletRequest.getHeader(AUTHENTICATION_HEADER);
-
-        // better injected
-        AuthenticationService authenticationService = new AuthenticationService();
 
         boolean authenticationStatus = authenticationService.authenticate(authCredentials);
 

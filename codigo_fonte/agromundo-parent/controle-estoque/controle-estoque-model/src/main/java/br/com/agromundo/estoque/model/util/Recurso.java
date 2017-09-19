@@ -7,6 +7,8 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -17,22 +19,23 @@ import org.apache.log4j.Logger;
  */
 public class Recurso {
 
-	  
-	  @Produces
-	  @AgroMundo
-	  public DataSource produceDataSourceScpbPush() {
-	    try {
-	      Context context = new InitialContext();
-	      return (DataSource) context.lookup("java:jboss/datasources/agro-mundo");
-	    } catch (Exception e) {
-	      throw new RuntimeException("Não foi possivel produzir o datasource");
-	    }
-	  }
+  @Produces
+  @PersistenceContext
+  private EntityManager em;
 
+  @Produces
+  @AgroMundo
+  public DataSource produceDataSourceScpbPush() {
+    try {
+      Context context = new InitialContext();
+      return (DataSource) context.lookup("java:jboss/datasources/agro-mundo");
+    } catch (Exception e) {
+      throw new RuntimeException("Não foi possivel produzir o datasource");
+    }
+  }
 
-	  
-	  @Produces
-	  public Logger produceLog(InjectionPoint injectionPoint) {
-	    return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
-	  }
+  @Produces
+  public Logger produceLog(InjectionPoint injectionPoint) {
+    return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+  }
 }
