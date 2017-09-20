@@ -32,7 +32,7 @@ public class BootDescarte extends HttpServlet {
   Logger log = Logger.getLogger(BootDescarte.class);
 
   
-	private static final int MINUTOS_NOTIFICACAO = 50;
+	private static final int MINUTOS_NOTIFICACAO = 57;
 	private static final int HORARIO_NOTIFICACAO = 22;
 	private static final String GRUPO_TRIGGER = "Notifica as 8 a.m";
 	private static final String NOME_TRIGGER = "trigger1";
@@ -59,7 +59,7 @@ public class BootDescarte extends HttpServlet {
 					.withIdentity(NOME_JOB, GRUPO_JOB).build();
 			Trigger trigger = newTrigger().withIdentity(NOME_TRIGGER, GRUPO_TRIGGER).startNow()
 					.withSchedule(CronScheduleBuilder.atHourAndMinuteOnGivenDaysOfWeek(HORARIO_NOTIFICACAO, MINUTOS_NOTIFICACAO, DateBuilder.MONDAY,
-							DateBuilder.THURSDAY, DateBuilder.WEDNESDAY, DateBuilder.THURSDAY, DateBuilder.FRIDAY))
+							DateBuilder.THURSDAY, DateBuilder.WEDNESDAY, DateBuilder.TUESDAY, DateBuilder.FRIDAY))
 					.build();
 			scheduler.scheduleJob(job, trigger);
 			scheduler.start();
