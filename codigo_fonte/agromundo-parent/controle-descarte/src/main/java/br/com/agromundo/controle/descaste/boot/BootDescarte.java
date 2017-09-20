@@ -11,6 +11,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.apache.log4j.Logger;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.DateBuilder;
 import org.quartz.JobDetail;
@@ -28,8 +29,11 @@ import br.com.agromundo.controle.descaste.util.CDIJobFactory;
  */
 public class BootDescarte extends HttpServlet {
 
-	private static final int MINUTOS_NOTIFICACAO = 26;
-	private static final int HORARIO_NOTIFICACAO = 21;
+  Logger log = Logger.getLogger(BootDescarte.class);
+
+  
+	private static final int MINUTOS_NOTIFICACAO = 50;
+	private static final int HORARIO_NOTIFICACAO = 22;
 	private static final String GRUPO_TRIGGER = "Notifica as 8 a.m";
 	private static final String NOME_TRIGGER = "trigger1";
 	private static final String GRUPO_JOB = "Notificar fabricantes sobre descarte";
@@ -50,11 +54,7 @@ public class BootDescarte extends HttpServlet {
 
 		try {
 			scheduler = StdSchedulerFactory.getDefaultScheduler();
-			
-
 			scheduler.setJobFactory(proveInjecao);
-			
-			
 			JobDetail job = newJob(JobVerificaProdutosDescarte.class)
 					.withIdentity(NOME_JOB, GRUPO_JOB).build();
 			Trigger trigger = newTrigger().withIdentity(NOME_TRIGGER, GRUPO_TRIGGER).startNow()
@@ -63,6 +63,8 @@ public class BootDescarte extends HttpServlet {
 					.build();
 			scheduler.scheduleJob(job, trigger);
 			scheduler.start();
+			
+			log.info("Foi configurado a rotina de envio de notificações para rodar nos dias da semanas às "+HORARIO_NOTIFICACAO+" horas e "+MINUTOS_NOTIFICACAO+" minutos");
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

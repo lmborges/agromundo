@@ -6,6 +6,7 @@ package br.com.agromundo.sistema.fornecedores;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -58,8 +59,10 @@ public class FornecedorResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public Response listarPorId(ConsultaPorListaId lista) {
-    System.out.println(lista);
-    return Response.status(200).entity(fornecedores).build();
+    List<FornecedorVO> fornecedoresSelecionados = fornecedores.stream().filter(ff ->{
+      return lista.getIds().contains(ff.getId());
+    }).collect(Collectors.toList());
+    return Response.status(200).entity(fornecedoresSelecionados).build();
   }
 
   @GET

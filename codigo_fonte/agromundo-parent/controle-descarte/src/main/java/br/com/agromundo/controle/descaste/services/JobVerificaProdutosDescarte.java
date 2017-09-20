@@ -17,7 +17,7 @@ public class JobVerificaProdutosDescarte implements org.quartz.Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		log.info("Iniciando notificação de fornecedores");
+		log.info(" Iniciando notificação de fornecedores ");
 		int qtdFornecedoresNotificados = gerenciadorDescarte.notificalFornecedoresComPendencia();
 		log.info(qtdFornecedoresNotificados+" fornecedores notificados");
 

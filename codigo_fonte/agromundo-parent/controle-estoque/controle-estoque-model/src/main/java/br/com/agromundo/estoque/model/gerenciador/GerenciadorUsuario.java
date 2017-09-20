@@ -56,17 +56,4 @@ RepositorioUsuario repositorio;
     return String.format(SALT, id, id);
   }
 
-
-
-
-  public static void main(String[] args) {
-    GerenciadorUsuario ger = new GerenciadorUsuario();
-    String obtemSalt = ger.obtemSalt(1L);
-    String senhaHash = ger.geraHashSenha("admin", obtemSalt);
-    System.out.println("salt: "+obtemSalt);
-    System.out.println("hash: "+senhaHash);
-    System.out.println(senhaHash);
-
-  }
-
 }

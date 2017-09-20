@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class FornecedoresWS {
     HttpPost post = new HttpPost(listarFornecedorPorListaIdFornecedor());
     List<FornecedorVO> fornecedor;
     try (CloseableHttpClient client = HttpClients.custom().useSystemProperties().build()) {
+      post.addHeader("Authorization","Basic "+ (Base64.getEncoder().encodeToString("admin:admin".getBytes("UTF-8"))));
       post.addHeader( HttpHeaders.CONTENT_TYPE, "application/json");
       Gson gson = new Gson();
       post.setEntity(new StringEntity(gson.toJson(consultaPorListaId)));
@@ -80,6 +82,7 @@ public class FornecedoresWS {
   
   private FornecedorVO obter(Long id) throws IOException {
     HttpGet get = new HttpGet(obterFornecedorId(id));
+    get.addHeader("Authorization","Basic "+ (Base64.getEncoder().encodeToString("admin:admin".getBytes("UTF-8"))));
     FornecedorVO fornecedor;
     try (CloseableHttpClient client = HttpClients.custom().useSystemProperties().build()) {
       try (CloseableHttpResponse response = client.execute(get)) {

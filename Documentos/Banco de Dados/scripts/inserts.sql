@@ -20,3 +20,5 @@ INSERT INTO agromundo.embalagem ( ds_nome, fk_id_fornecedor) VALUES ( 'Embalagem
 INSERT INTO agromundo.embalagem ( ds_nome, fk_id_fornecedor) VALUES ( 'Embalagem de galão', 1);
 INSERT INTO agromundo.embalagem ( ds_nome, fk_id_fornecedor) VALUES ( 'Plastico Bolha', 1);
 
+-- usuario admin
+INSERT INTO agromundo.usuario ( ds_login, cd_senha, ds_nome, cd_tipo_usuario) VALUES ('admin', 'c55eaf3f86f645c8916217b4a2f175ba6086abf2d797ea5f7b3bd067cafe9a32c2b7ccaf09ea2e7d62fe87b0762b0c279c4ec1ff35346f9bd1dd01ac1e49cdea', 'Jaum', '1');
